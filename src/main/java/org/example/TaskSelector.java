@@ -1,10 +1,8 @@
 package org.example;
 
-import java.sql.ClientInfoStatus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 public class TaskSelector {
     public static void main(String[] args) {
@@ -32,7 +30,7 @@ public class TaskSelector {
                 sumSeries();
                 break;
             case 5:
-                checkPalindrome();
+                checkPalindrome("ggg");
                 break;
             default:
                 System.out.println("Neverno.");}
@@ -75,7 +73,6 @@ public class TaskSelector {
 
     // 3. Решение квадратного уравнения
     public static List<Double> solveQuadraticEquation(double a, double b, double c) {
-        Scanner scanner = new Scanner(System.in);
         List<Double> result = new ArrayList<>();
         System.out.println("Paste the koefficents for a, b and c for  ax^2 + bx + c = 0:");
         double discriminant = b * b - 4 * a * c;
@@ -92,32 +89,33 @@ public class TaskSelector {
     };
 
     // 4. Сумма ряда
-    public static void sumSeries() {
-        double epsilon = 1e-6;
+    public static double sumSeries() {
+        double epsilon = 1e-10;
         double sum = 0;
         int n = 2;
         double term;
 
         do {
-            term = 1.0 / (n * n + 2 * n);
+            term = 1.0 / (n * n + n);
             sum += term;
             n++;
         } while (term > epsilon);
 
-        System.out.println("Summ: " + sum);
-    }
+        // Округление до одного знака после запятой
+        return Math.round(sum * 10.0) / 10.0;
+
+}
 
     // 5. Проверка на палиндром
-    public static void checkPalindrome() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Write string for test word :");
-        String input = scanner.next();
-        String reversed = new StringBuilder(input).reverse().toString();
+    public static boolean checkPalindrome(String str) {
+        // Убираем все не буквенно-цифровые символы и переводим строку в нижний регистр
+        String cleanedStr = str.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-        if (input.equals(reversed)) {
-            System.out.println("Palendrom! vse 4etko");
-        } else {
-            System.out.println("neugadal. popla4");
-        }
+        // Переворачиваем очищенную строку
+        String reversed = new StringBuilder(cleanedStr).reverse().toString();
+
+        // Проверяем, является ли очищенная строка палиндромом
+        return cleanedStr.equals(reversed);
     }
+
 }

@@ -30,4 +30,18 @@ class TaskSelectorTest {
         List<Double> test1 = Arrays.asList(testArray1);
         assertEquals(test1, TaskSelector.solveQuadraticEquation(a, b, c));
     }
+
+    @Test
+    void sumSeries() {
+        double expected = 0.5;  // Ожидаемое значение
+        double actual = TaskSelector.sumSeries();
+        double delta = 1e-5;    // Погрешность чуть больше для учета округлений
+        assertEquals(expected, actual, delta, "The sumSeries method does not return the expected result.");
+    }
+
+    @Test
+    void testPalindromeTrue() {
+        assertTrue(TaskSelector.checkPalindrome("madam"),
+                "The word 'madam' should be identified as a palindrome.");
+    }
 }
