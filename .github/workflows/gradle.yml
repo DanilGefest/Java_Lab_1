@@ -1,31 +1,26 @@
-name: Java CI with Gradle
+name: Android CI
 
 on:
-  pull_request:
-  branches: [ "master" ]
-    push:
-  branches: [ "master" ]
+push:
+branches: [ "master" ]
+pull_request:
+branches: [ "master" ]
 
 jobs:
-  build-test:
-  name: Compile and test application
+build:
 
-  runs-on: ubuntu-latest
+runs-on: ubuntu-latest
 
-  steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 21
-      uses: actions/setup-java@v3
-      with:
-        java-version: '21'
-        distribution: 'temurin'
+steps:
+  - uses: actions/checkout@v4
+  - name: set up JDK 11
+uses: actions/setup-java@v4
+with:
+java-version: '11'
+distribution: 'temurin'
+cache: gradle
 
-    - name: Grand executive permission for gradlew
-      run: chmod +x ./gradlew
-
-    - name: Gradlew clean
-      run: ./gradlew clean
-
-    - name: Gradlew test run
-      id: test
-      run: ./gradlew test
+  - name: Grant execute permission for gradlew
+run: chmod +x gradlew
+  - name: Build with Gradle
+run: ./gradlew build
